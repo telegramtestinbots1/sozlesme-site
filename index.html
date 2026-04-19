@@ -48,6 +48,7 @@ body{
     padding:14px;
     margin-bottom:12px;
     box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    display:block;
 }
 
 .title{
@@ -97,6 +98,12 @@ body{
     font-weight:600;
     font-size:15px;
     word-break:break-word;
+}
+
+.contract-text{
+    line-height:1.6;
+    color:#1f2937;
+    font-size:14px;
 }
 
 canvas{
@@ -203,22 +210,46 @@ label{
         </div>
     </div>
 
-    <!-- SÖZLEŞME MADDELERİ (TAM HALİ) -->
-    <div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
+    <!-- SÖZLEŞME MADDELERİ -->
+    <div class="card">
+        <div class="title">Hizmetin Kapsamı</div>
+        <div class="contract-text">Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div>
+    </div>
 
-    <div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından gerçekleştirilen ödeme, işlem tamamlanıncaya kadar güvenli hesapta muhafaza edilir. Bu süre zarfında tutar satıcı tarafından kullanılamaz. Tüm ödemeler, Sahibinden güvencesiyle korunmaktadır.</div></div>
+    <div class="card">
+        <div class="title">Ödeme ve Blokaj Süreci</div>
+        <div class="contract-text">Alıcı tarafından gerçekleştirilen ödeme, işlem tamamlanıncaya kadar güvenli hesapta muhafaza edilir. Bu süre zarfında tutar satıcı tarafından kullanılamaz. Tüm ödemeler, Sahibinden güvencesiyle korunmaktadır.</div>
+    </div>
 
-    <div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
+    <div class="card">
+        <div class="title">Alıcı Onayı ve Otomatik Aktarım</div>
+        <div class="contract-text">Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div>
+    </div>
 
-    <div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
+    <div class="card">
+        <div class="title">İtiraz ve İnceleme</div>
+        <div class="contract-text">İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div>
+    </div>
 
-    <div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
+    <div class="card">
+        <div class="title">Satıcı Haklarının Korunması</div>
+        <div class="contract-text">Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div>
+    </div>
 
-    <div class="card"><div class="title">Platform Sorumluluğu ve Sigorta</div><div>S - Param Güvende, nakliye ve ödeme aracılık hizmeti sunmakta olup, sunulan ürün ve/veya hizmetlere ilişkin sorumlulukları üstlenmektedir. Alıcı ve Satıcı’nın, işlemlerini zorunlu sigorta kapsamında gerçekleştirmesi gerekmektedir.</div></div>
+    <div class="card">
+        <div class="title">Platform Sorumluluğu ve Sigorta</div>
+        <div class="contract-text">S - Param Güvende, nakliye ve ödeme aracılık hizmeti sunmakta olup, sunulan ürün ve/veya hizmetlere ilişkin sorumlulukları üstlenmektedir. Alıcı ve Satıcı’nın, işlemlerini zorunlu sigorta kapsamında gerçekleştirmesi gerekmektedir.</div>
+    </div>
 
-    <div class="card"><div class="title">Nakliye ve Teslimat Koşulları</div><div>Sahibinden.com üzerinden gerçekleştirilen alışverişlerde, gönderimler anlaşmalı kargo firmaları olan Yurtiçi Kargo veya PTT Kargo aracılığıyla sağlanmakta olup, Türkiye genelinde ücretsiz olarak teslim edilmektedir.</div></div>
+    <div class="card">
+        <div class="title">Nakliye ve Teslimat Koşulları</div>
+        <div class="contract-text">Sahibinden.com üzerinden gerçekleştirilen alışverişlerde, gönderimler anlaşmalı kargo firmaları olan Yurtiçi Kargo veya PTT Kargo aracılığıyla sağlanmakta olup, Türkiye genelinde ücretsiz olarak teslim edilmektedir.</div>
+    </div>
 
-    <div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
+    <div class="card">
+        <div class="title">Elektronik Onay</div>
+        <div class="contract-text">Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div>
+    </div>
 
     <!-- İMZA -->
     <div class="card">
@@ -255,7 +286,10 @@ function resizeCanvas() {
 
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
-    canvas.getContext("2d").scale(ratio, ratio);
+
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(ratio, ratio);
 
     if (savedData) {
         pad.fromData(savedData);

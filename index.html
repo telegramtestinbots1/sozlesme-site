@@ -1,17 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Param Güvende Sözleşme</title>
+
+<style>
+body {
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    background:#f4f6f8;
+}
+
+/* HEADER */
+.header {
+    background:#0f172a;
+    padding:18px 12px;
+    text-align:center;
+}
+.logo { height:28px; }
+.sub { color:#cbd5e1; font-size:12px; }
+.secure-badge {
+    margin-top:6px;
+    background:#16a34a;
+    color:white;
+    font-size:11px;
+    padding:4px 10px;
+    border-radius:999px;
+    display:inline-block;
+}
+
+/* CONTAINER */
+.container {
+    padding:16px;
+    max-width:720px;
+    margin:auto;
+}
+
+/* CARD */
+.card {
+    background:white;
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.title {
+    font-weight:700;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+/* ÜRÜN */
+.product-box {
+    border-left:5px solid #16a34a;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    background:#fff;
+}
+
+.product-row {
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.product-item {
+    border:1px solid #e5e7eb;
+    padding:10px;
+    border-radius:8px;
+    min-width:200px;
+}
+
+.product-label {
+    font-weight:700;
+    font-size:13px;
+}
+
+.product-value {
+    font-weight:600;
+    font-size:15px;
+}
+
+.phone-icon {
+    margin-right:5px;
+}
+
+/* İMZA */
+.signature-box {
+    border:2px dashed #cbd5e1;
+    border-radius:10px;
+    overflow:hidden;
+    background:#fff;
+}
+
+canvas {
+    width:100%;
+    height:180px;
+    display:block;
+}
+
+/* TEMİZLE BUTONU */
+.clear-btn {
+    margin-top:10px;
+    background:#e5e7eb;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:8px;
+    font-weight:600;
+}
+
+/* BUTON */
+.actions {
+    position:sticky;
+    bottom:0;
+    background:white;
+    padding:12px;
+}
+
+button.primary {
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-weight:700;
+}
+
+/* MODAL */
+.modal {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-box {
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
+    <div class="sub">Param Güvende Hizmet Sözleşmesi</div>
+    <div class="secure-badge">🔒 %100 Güvenli İşlem</div>
+</div>
+
+<div class="container">
+
+<!-- ÜRÜN -->
+<div class="card">
+<div class="title">Ürün Bilgisi</div>
+
+<div class="product-box">
+
+<div class="product-row">
+<div class="product-item">
+<div class="product-label">Ürün Adı</div>
+<div id="pname" class="product-value">Yükleniyor...</div>
+</div>
+
+<div class="product-item">
+<div class="product-label">Ürün Fiyatı</div>
+<div id="pprice" class="product-value"></div>
+</div>
+</div>
+
+<div class="product-row">
+<div class="product-item">
+<div class="product-label">Satıcı</div>
+<div id="pseller" class="product-value"></div>
+</div>
+
+<div class="product-item">
+<div class="product-label">İletişim</div>
+<div class="product-value">
+<span class="phone-icon">📞</span>
+<span id="pphone"></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- İMZA -->
+<div class="card">
+<div class="title">İmzanız</div>
+
+<div class="signature-box">
+<canvas id="pad"></canvas>
+</div>
+
+<button class="clear-btn" onclick="clearPad()">Temizle</button>
+</div>
+
+<div class="card">
+<label>
+<input type="checkbox" id="check">
+ Sözleşmeyi okudum ve kabul ediyorum
+</label>
+</div>
+
+</div>
+
+<div class="actions">
+<button class="primary" onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="modal-box">
+<div id="modalText"></div>
+<button onclick="closeModal()">Tamam</button>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+<script>
+const canvas = document.getElementById("pad");
+const pad = new SignaturePad(canvas);
+
+/* CANVAS FIX (kayma çözümü) */
+function resizeCanvas(){
+ const ratio = Math.max(window.devicePixelRatio || 1, 1);
+ canvas.width = canvas.offsetWidth * ratio;
+ canvas.height = canvas.offsetHeight * ratio;
+ canvas.getContext("2d").scale(ratio, ratio);
+ pad.clear();
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+/* TEMİZLE */
+function clearPad(){
+ pad.clear();
+}
+
+/* MODAL */
+function showModal(text){
+ document.getElementById("modalText").innerText = text;
+ document.getElementById("modal").style.display = "flex";
+}
+function closeModal(){
+ document.getElementById("modal").style.display = "none";
+}
+
+/* ÜRÜN ÇEK (HATA DÜZELTİLDİ) */
+fetch("https://telegram-product-system.onrender.com/product")
+.then(r=>{
+ if(!r.ok) throw new Error();
+ return r.json();
+})
+.then(d=>{
+ let price = d.price || "-";
+ if(!price.toLowerCase().includes("tl")) price += " TL";
+
+ document.getElementById("pname").innerText = d.name || "-";
+ document.getElementById("pprice").innerText = price;
+ document.getElementById("pseller").innerText = d.seller || "-";
+ document.getElementById("pphone").innerText = d.phone || "-";
+})
+.catch(()=>{
+ document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
+});
+
+/* GÖNDER */
 function send(){
 
- // Checkbox kontrolü
  if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmelisiniz");
+   showModal("Sözleşmeyi kabul etmelisiniz");
    return;
  }
 
- // İmza kontrolü
  if(pad.isEmpty()){
-   alert("İmza gereklidir");
+   showModal("İmza gereklidir");
    return;
  }
 
- // Başarılı mesaj
- alert("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
+ showModal("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
 }
+</script>
+
+</body>
+</html>

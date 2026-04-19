@@ -25,7 +25,6 @@ canvas {width:100%;height:180px;border:2px dashed #ccc;border-radius:10px;}
 .actions {position:sticky;bottom:0;background:white;padding:10px;}
 button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34a;color:white;font-weight:700;}
 .secondary {background:#e5e7eb;color:black;margin-top:10px;}
-.product-image {width:100%;max-width:220px;border-radius:10px;margin:10px auto;display:block;}
 </style>
 </head>
 
@@ -44,53 +43,52 @@ button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34
 <!-- ÜRÜN -->
 <div class="card">
 <div class="title">Ürün Bilgisi</div>
-<div class="product-box">
 
-<img id="pimage" class="product-image" src="https://via.placeholder.com/200">
+<div class="product-box">
 
 <div class="product-row">
 <div class="product-item">
 <div class="product-label">Ürün Adı</div>
-<div id="pname" class="product-value">Yükleniyor...</div>
+<div id="pname" class="product-value"></div>
 </div>
 
 <div class="product-item">
 <div class="product-label">Ürün Fiyatı</div>
-<div id="pprice" class="product-value">-</div>
+<div id="pprice" class="product-value"></div>
 </div>
 </div>
 
 <div class="product-row">
 <div class="product-item">
 <div class="product-label">Satıcı</div>
-<div id="pseller" class="product-value">-</div>
+<div id="pseller" class="product-value"></div>
 </div>
 
 <div class="product-item">
 <div class="product-label">İletişim</div>
-<div class="product-value">📞 <span id="pphone">-</span></div>
+<div class="product-value"><span class="phone-icon">📞</span><span id="pphone"></span></div>
 </div>
 </div>
 
 </div>
 </div>
 
-<!-- SÖZLEŞME TAM HALİ -->
-<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Bu platform, alıcı ile satıcı arasında gerçekleştirilen işlemlerde yalnızca ödeme aracılık hizmeti sunmaktadır. Platform, ürün veya hizmetin tarafı olmayıp, yalnızca güvenli ödeme sürecinin yönetilmesini sağlar.</div></div>
+<!-- SÖZLEŞME MADDELERİ (TAM HALİ) -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
 
-<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından gerçekleştirilen ödeme, işlem tamamlanana kadar güvenli hesapta tutulur. Bu süre boyunca ödeme satıcı tarafından kullanılamaz ve platform güvencesi altındadır.</div></div>
+<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından yapılan ödeme, işlem tamamlanana kadar güvenli hesapta tutulur. Bu süre boyunca ödeme satıcı tarafından kullanılamaz.</div></div>
 
-<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı tarafından ürün veya hizmetin eksiksiz teslim alındığının onaylanması halinde ödeme satıcıya aktarılır. Belirlenen süre içinde herhangi bir itiraz yapılmazsa ödeme otomatik olarak satıcı hesabına geçirilir.</div></div>
+<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
 
-<div class="card"><div class="title">İtiraz ve İnceleme Süreci</div><div>Alıcı tarafından itiraz edilmesi halinde işlem geçici olarak durdurulur ve tarafların sunduğu bilgi ve belgeler doğrultusunda değerlendirme yapılır. Platform kayıtları esas alınır.</div></div>
+<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
 
-<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz ve belirtilen şekilde teslim ettiğini belgelediği takdirde ödeme alma hakkına sahiptir. Kötü niyetli veya asılsız itirazlar reddedilir.</div></div>
+<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
 
-<div class="card"><div class="title">Platform Sorumluluğu</div><div>Platform yalnızca ödeme aracılık hizmeti sunmakta olup, ürünün kalitesi, teslim süresi veya taraflar arasındaki anlaşmazlıklardan doğrudan sorumlu değildir.</div></div>
+<div class="card"><div class="title">Platform Sorumluluğu ve Sigorta</div><div>S - Param Güvende, nakliye ve ödeme aracılık hizmeti sunmakta olup, sunulan ürün ve/veya hizmetlere ilişkin sorumlulukları üstlenmektedir. Alıcı ve Satıcı’nın, işlemlerini zorunlu sigorta kapsamında gerçekleştirmesi gerekmektedir.</div></div>
 
-<div class="card"><div class="title">Gizlilik ve Veri Koruma</div><div>Kullanıcı bilgileri ilgili mevzuat kapsamında korunmakta olup üçüncü kişilerle paylaşılmaz.</div></div>
+<div class="card"><div class="title">Gizlilik ve Veri Koruma</div><div>Kullanıcı verileri ilgili mevzuata uygun şekilde korunur.</div></div>
 
-<div class="card"><div class="title">Elektronik Onay ve Delil Niteliği</div><div>Bu sözleşme elektronik ortamda onaylandığında yürürlüğe girer ve tüm kayıtlar hukuki delil olarak kabul edilir.</div></div>
+<div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
 
 <!-- İMZA -->
 <div class="card">
@@ -116,33 +114,33 @@ const pad = new SignaturePad(document.getElementById("pad"));
 
 function clearPad(){ pad.clear(); }
 
-// API
+// ÜRÜN
 fetch("https://telegram-product-system.onrender.com/product")
 .then(r=>r.json())
 .then(d=>{
  let price = d.price || "-";
  if (!price.toLowerCase().includes("tl")) price += " TL";
 
- document.getElementById("pname").innerText = d.name || "-";
+ document.getElementById("pname").innerText = d.name;
  document.getElementById("pprice").innerText = price;
- document.getElementById("pseller").innerText = d.seller || "-";
- document.getElementById("pphone").innerText = d.phone || "-";
- document.getElementById("pimage").src = d.image || "https://via.placeholder.com/200";
+ document.getElementById("pseller").innerText = d.seller;
+ document.getElementById("pphone").innerText = d.phone;
 });
 
-// ONAY
+// ALERT SİSTEMİ
 function send(){
+
  if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmeniz gerekmektedir");
+   alert("Sözleşmeyi kabul etmelisiniz");
    return;
  }
 
  if(pad.isEmpty()){
-   alert("İmza zorunludur lütfen imzalayınız.");
+   alert("İmza gereklidir");
    return;
  }
 
- alert("Sözleşmeniz başarıyla onaylanmıştır. Yetkili temsilciyi bilgilendiriniz.");
+ alert("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
 }
 </script>
 

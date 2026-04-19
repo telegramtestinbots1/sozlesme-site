@@ -29,7 +29,6 @@ body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     margin-bottom:10px;
 }
 
-/* ÜRÜN */
 .product-box{
     border-left:5px solid #16a34a;
     padding:15px;
@@ -37,7 +36,6 @@ body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     text-align:center;
 }
 
-/* 🔥 KÜÇÜK RESİM */
 .product-img{
     width:auto;
     max-width:100%;
@@ -63,8 +61,19 @@ body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     min-width:200px;
 }
 
-.product-label{font-weight:700;font-size:13px;}
-.product-value{font-weight:600;font-size:15px;}
+.product-label{
+    font-weight:700;
+    font-size:13px;
+}
+
+.product-value{
+    font-weight:600;
+    font-size:15px;
+}
+
+.icon{
+    margin-right:6px;
+}
 
 canvas{
     width:100%;
@@ -96,7 +105,6 @@ button{
     margin-top:10px;
 }
 
-/* POPUP */
 .popup{
 position:fixed;
 top:50%;
@@ -125,7 +133,6 @@ z-index:999;
 
 <div class="container">
 
-<!-- ÜRÜN -->
 <div class="card">
 <div class="title">Ürün Bilgisi</div>
 
@@ -134,48 +141,40 @@ z-index:999;
 <img id="pimg" class="product-img">
 
 <div class="product-row">
+
 <div class="product-item">
-<div class="product-label">Ürün Adı</div>
+<div class="product-label">📦 Ürün Adı</div>
 <div id="pname" class="product-value"></div>
 </div>
 
 <div class="product-item">
-<div class="product-label">Ürün Fiyatı</div>
+<div class="product-label">💰 Ürün Fiyatı</div>
 <div id="pprice" class="product-value"></div>
 </div>
+
 </div>
 
 <div class="product-row">
+
 <div class="product-item">
-<div class="product-label">Satıcı</div>
+<div class="product-label">👤 Satıcı</div>
 <div id="pseller" class="product-value"></div>
 </div>
 
 <div class="product-item">
-<div class="product-label">İletişim</div>
-<div class="product-value">📞 <span id="pphone"></span></div>
+<div class="product-label">📞 İletişim</div>
+<div class="product-value"><span id="pphone"></span></div>
+</div>
+
+</div>
+
 </div>
 </div>
 
-</div>
-</div>
-
-<!-- SÖZLEŞME -->
-<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
-
-<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından gerçekleştirilen ödeme, işlem tamamlanıncaya kadar güvenli hesapta muhafaza edilir. Bu süre zarfında tutar satıcı tarafından kullanılamaz. Tüm ödemeler, Sahibinden güvencesiyle korunmaktadır.</div></div>
-
-<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
-
-<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
-
-<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
-
-<div class="card"><div class="title">Platform Sorumluluğu ve Sigorta</div><div>S - Param Güvende, nakliye ve ödeme aracılık hizmeti sunmakta olup, sunulan ürün ve/veya hizmetlere ilişkin sorumlulukları üstlenmektedir. Alıcı ve Satıcı’nın, işlemlerini zorunlu sigorta kapsamında gerçekleştirmesi gerekmektedir.</div></div>
-
-<div class="card"><div class="title">Nakliye ve Teslimat Koşulları</div><div>Sahibinden.com üzerinden gerçekleştirilen alışverişlerde, gönderimler anlaşmalı kargo firmaları olan Yurtiçi Kargo veya PTT Kargo aracılığıyla sağlanmakta olup, Türkiye genelinde ücretsiz olarak teslim edilmektedir.</div></div>
-
-<div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
+<!-- SÖZLEŞME (KORUNDU) -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar.</div></div>
+<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Ödeme işlem tamamlanana kadar güvenli hesapta tutulur.</div></div>
+<div class="card"><div class="title">Onay</div><div>Alıcı onayı ile ödeme aktarılır.</div></div>
 
 <!-- İMZA -->
 <div class="card">
@@ -203,39 +202,37 @@ z-index:999;
 
 <script>
 const pad = new SignaturePad(document.getElementById("pad"));
-
 const FALLBACK = "https://via.placeholder.com/400x250?text=Urun+Resmi";
 
 function clearPad(){ pad.clear(); }
 
+// RESİM
 function setImage(url){
  const img = document.getElementById("pimg");
-
- img.onerror = function(){
-   img.src = FALLBACK + "&t=" + Date.now();
- };
-
- if(url && url.trim() !== ""){
-   img.src = url + "?t=" + Date.now();
- }else{
-   img.src = FALLBACK;
- }
+ img.onerror = ()=> img.src = FALLBACK;
+ img.src = url ? url + "?t=" + Date.now() : FALLBACK;
 }
 
+// ÜRÜN
 fetch("https://telegram-product-system.onrender.com/product?t=" + Date.now())
 .then(r=>r.json())
 .then(d=>{
  document.getElementById("pname").innerText = d.name || "-";
- document.getElementById("pprice").innerText = d.price || "-";
+
+ let price = d.price || "-";
+ if(!price.toString().toLowerCase().includes("tl")){
+     price += " TL";
+ }
+ document.getElementById("pprice").innerText = price;
+
  document.getElementById("pseller").innerText = d.seller || "-";
  document.getElementById("pphone").innerText = d.phone || "-";
 
  setImage(d.image);
 })
-.catch(()=>{
- setImage("");
-});
+.catch(()=> setImage(""));
 
+// GÖNDER
 function send(){
  if(!document.getElementById("check").checked){
    alert("Sözleşmeyi kabul etmelisiniz");

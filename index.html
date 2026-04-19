@@ -6,534 +6,260 @@
 <title>Param Güvende Sözleşme</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
 body{
     margin:0;
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     background:#f4f6f8;
-    color:#111827;
 }
 
+/* HEADER */
 .header{
     background:#0f172a;
     padding:18px 12px;
 }
-
 .header-center{
     display:flex;
     flex-direction:column;
     align-items:center;
-    text-align:center;
 }
-
-.logo{
-    height:28px;
-    object-fit:contain;
-}
-
-.sub{
-    color:#cbd5e1;
-    font-size:12px;
-    margin-top:6px;
-}
-
+.logo{ height:28px; }
+.sub{ color:#cbd5e1;font-size:12px; }
 .secure-badge{
     margin-top:6px;
     background:#16a34a;
-    color:#fff;
+    color:white;
     font-size:11px;
     padding:4px 10px;
     border-radius:999px;
-    display:inline-block;
-    font-weight:600;
 }
 
+/* CONTAINER */
 .container{
     padding:16px;
     max-width:720px;
     margin:auto;
 }
 
+/* CARD */
 .card{
-    background:#fff;
+    background:white;
     border-radius:12px;
     padding:14px;
     margin-bottom:12px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
-
 .title{
     font-weight:700;
     text-align:center;
-    margin-bottom:12px;
-    color:#0f172a;
-    font-size:16px;
+    margin-bottom:10px;
 }
 
+/* PRODUCT */
 .product-box{
     border-left:5px solid #16a34a;
     padding:15px;
     border-radius:10px;
     text-align:center;
-    background:linear-gradient(180deg,#ffffff,#f8fafc);
 }
 
+/* 🔥 KÜÇÜLTÜLMÜŞ RESİM */
 .product-img{
-    width:100%;
-    max-height:320px;
-    object-fit:contain;
-    border:1px solid #e5e7eb;
+    width:auto;
+    max-width:100%;
+    max-height:200px;
+    display:block;
+    margin:0 auto 12px;
     border-radius:10px;
-    margin-bottom:14px;
-    display:none;
-    background:#fff;
+    border:1px solid #e5e7eb;
 }
 
+/* ROW */
 .product-row{
     display:flex;
     justify-content:center;
     gap:15px;
     flex-wrap:wrap;
-    margin-bottom:12px;
 }
-
 .product-item{
     border:1px solid #e5e7eb;
-    padding:12px;
-    border-radius:10px;
-    min-width:220px;
-    background:#fff;
+    padding:10px;
+    border-radius:8px;
+    min-width:200px;
 }
-
 .product-label{
     font-weight:700;
     font-size:13px;
-    margin-bottom:6px;
-    color:#374151;
 }
-
 .product-value{
     font-weight:600;
     font-size:15px;
-    color:#111827;
-    word-break:break-word;
 }
 
-.phone-icon{
-    margin-right:5px;
-}
-
-.contract-text{
-    color:#1f2937;
-    line-height:1.6;
-    font-size:14px;
-}
-
-.signature-wrap{
-    width:100%;
-}
-
+/* SIGN */
 canvas{
     width:100%;
     height:180px;
-    border:2px dashed #cbd5e1;
+    border:2px dashed #ccc;
     border-radius:10px;
-    background:#fff;
-    display:block;
-    touch-action:none;
 }
 
+/* BUTTON */
 .actions{
     position:sticky;
     bottom:0;
-    background:#fff;
-    padding:12px;
-    box-shadow:0 -3px 12px rgba(0,0,0,0.08);
+    background:white;
+    padding:10px;
 }
-
 button{
     width:100%;
     padding:14px;
     border:none;
     border-radius:10px;
-    font-weight:700;
-    font-size:14px;
-    cursor:pointer;
-    transition:0.2s ease;
-}
-
-button:hover{
-    opacity:0.96;
-}
-
-.primary{
     background:#16a34a;
-    color:#fff;
+    color:white;
+    font-weight:700;
 }
-
 .secondary{
     background:#e5e7eb;
-    color:#111827;
+    color:black;
     margin-top:10px;
 }
 
-.checkbox-row{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.checkbox-row input{
-    margin-top:2px;
-    transform:scale(1.1);
-}
-
-.alert-overlay{
+/* POPUP */
+.popup{
     position:fixed;
-    inset:0;
-    background:rgba(15,23,42,0.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
     padding:20px;
-}
-
-.alert-box{
-    width:100%;
-    max-width:420px;
-    background:#fff;
-    border-radius:18px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.2);
-    overflow:hidden;
-    animation:fadeUp .25s ease;
-}
-
-.alert-top{
-    padding:18px 18px 10px;
+    border-radius:12px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    display:none;
     text-align:center;
-}
-
-.alert-icon{
-    width:58px;
-    height:58px;
-    margin:0 auto 12px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:26px;
-    font-weight:700;
-    background:#dcfce7;
-    color:#16a34a;
-}
-
-.alert-title{
-    font-size:18px;
-    font-weight:800;
-    color:#0f172a;
-    margin-bottom:8px;
-}
-
-.alert-message{
-    font-size:14px;
-    color:#475569;
-    line-height:1.6;
-}
-
-.alert-actions{
-    padding:14px 18px 18px;
-}
-
-.alert-actions button{
-    margin:0;
-}
-
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(18px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@media (max-width:540px){
-    .product-item{
-        min-width:100%;
-    }
+    z-index:999;
 }
 </style>
 </head>
 
 <body>
 
-<div class="alert-overlay" id="alertOverlay">
-    <div class="alert-box">
-        <div class="alert-top">
-            <div class="alert-icon" id="alertIcon">✓</div>
-            <div class="alert-title" id="alertTitle">Bilgilendirme</div>
-            <div class="alert-message" id="alertMessage"></div>
-        </div>
-        <div class="alert-actions">
-            <button class="primary" onclick="closeAlert()">Tamam</button>
-        </div>
-    </div>
-</div>
-
 <div class="header">
-    <div class="header-center">
-        <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo" alt="Logo">
-        <div class="sub">Param Güvende Hizmet Sözleşmesi</div>
-        <div class="secure-badge">🔒 %100 Güvenli İşlem</div>
-    </div>
+<div class="header-center">
+<img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
+<div class="sub">Param Güvende Hizmet Sözleşmesi</div>
+<div class="secure-badge">🔒 %100 Güvenli İşlem</div>
+</div>
 </div>
 
 <div class="container">
 
-    <!-- ÜRÜN -->
-    <div class="card">
-        <div class="title">Ürün Bilgisi</div>
+<!-- ÜRÜN -->
+<div class="card">
+<div class="title">Ürün Bilgisi</div>
 
-        <div class="product-box">
-            <img id="pimg" class="product-img" alt="Ürün Resmi">
+<div class="product-box">
 
-            <div class="product-row">
-                <div class="product-item">
-                    <div class="product-label">Ürün Adı</div>
-                    <div id="pname" class="product-value">Yükleniyor...</div>
-                </div>
+<img id="pimg" class="product-img">
 
-                <div class="product-item">
-                    <div class="product-label">Ürün Fiyatı</div>
-                    <div id="pprice" class="product-value">Yükleniyor...</div>
-                </div>
-            </div>
+<div class="product-row">
+<div class="product-item">
+<div class="product-label">Ürün Adı</div>
+<div id="pname" class="product-value"></div>
+</div>
 
-            <div class="product-row">
-                <div class="product-item">
-                    <div class="product-label">Satıcı</div>
-                    <div id="pseller" class="product-value">Yükleniyor...</div>
-                </div>
+<div class="product-item">
+<div class="product-label">Ürün Fiyatı</div>
+<div id="pprice" class="product-value"></div>
+</div>
+</div>
 
-                <div class="product-item">
-                    <div class="product-label">İletişim</div>
-                    <div class="product-value">
-                        <span class="phone-icon">📞</span><span id="pphone">Yükleniyor...</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="product-row">
+<div class="product-item">
+<div class="product-label">Satıcı</div>
+<div id="pseller" class="product-value"></div>
+</div>
 
-    <!-- SÖZLEŞME MADDELERİ -->
-    <div class="card">
-        <div class="title">Hizmetin Kapsamı</div>
-        <div class="contract-text">
-            Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.
-        </div>
-    </div>
+<div class="product-item">
+<div class="product-label">İletişim</div>
+<div class="product-value">📞 <span id="pphone"></span></div>
+</div>
+</div>
 
-    <div class="card">
-        <div class="title">Ödeme ve Blokaj Süreci</div>
-        <div class="contract-text">
-            Alıcı tarafından yapılan ödeme, işlem tamamlanana kadar güvenli hesapta tutulur. Bu süre boyunca ödeme satıcı tarafından kullanılamaz.
-        </div>
-    </div>
+</div>
+</div>
 
-    <div class="card">
-        <div class="title">Alıcı Onayı ve Otomatik Aktarım</div>
-        <div class="contract-text">
-            Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.
-        </div>
-    </div>
+<!-- SÖZLEŞME -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında ödeme aracılık hizmeti sunar.</div></div>
+<div class="card"><div class="title">Ödeme Süreci</div><div>Ödeme işlem tamamlanana kadar güvenli hesapta tutulur.</div></div>
+<div class="card"><div class="title">Onay</div><div>Alıcı onayı ile ödeme satıcıya aktarılır.</div></div>
+<div class="card"><div class="title">İtiraz</div><div>İtiraz durumunda işlem incelenir.</div></div>
+<div class="card"><div class="title">Gizlilik</div><div>Kullanıcı verileri korunur.</div></div>
 
-    <div class="card">
-        <div class="title">İtiraz ve İnceleme</div>
-        <div class="contract-text">
-            İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.
-        </div>
-    </div>
+<!-- İMZA -->
+<div class="card">
+<div class="title">İmzanız</div>
+<canvas id="pad"></canvas>
+<button class="secondary" onclick="clearPad()">Temizle</button>
+</div>
 
-    <div class="card">
-        <div class="title">Satıcı Haklarının Korunması</div>
-        <div class="contract-text">
-            Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="title">Platform Sorumluluğu</div>
-        <div class="contract-text">
-            Platform yalnızca ödeme aracılık hizmeti sunar ve ürün/hizmet ile ilgili sorumluluk kabul etmez.
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="title">Gizlilik ve Veri Koruma</div>
-        <div class="contract-text">
-            Kullanıcı verileri ilgili mevzuata uygun şekilde korunur.
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="title">Elektronik Onay</div>
-        <div class="contract-text">
-            Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.
-        </div>
-    </div>
-
-    <!-- İMZA -->
-    <div class="card">
-        <div class="title">İmzanız</div>
-        <div class="signature-wrap">
-            <canvas id="pad"></canvas>
-        </div>
-        <button class="secondary" type="button" onclick="clearPad()">Temizle</button>
-    </div>
-
-    <!-- ONAY -->
-    <div class="card">
-        <label class="checkbox-row">
-            <input type="checkbox" id="check">
-            <span>Sözleşmeyi okudum ve kabul ediyorum</span>
-        </label>
-    </div>
+<div class="card">
+<label><input type="checkbox" id="check"> Sözleşmeyi kabul ediyorum</label>
+</div>
 
 </div>
 
 <div class="actions">
-    <button class="primary" type="button" onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
+<button onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
+</div>
+
+<div class="popup" id="popup">
+<p>Sözleşmeniz başarıyla kayıt altına alınmıştır.<br>Yetkili temsilcinizi bilgilendiriniz.</p>
+<button onclick="closePopup()">Tamam</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <script>
-const canvas = document.getElementById("pad");
-const pad = new SignaturePad(canvas, {
-    minWidth: 1,
-    maxWidth: 2.5
-});
+const pad = new SignaturePad(document.getElementById("pad"));
 
-function resizeCanvas() {
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    const data = pad.isEmpty() ? null : pad.toData();
+function clearPad(){ pad.clear(); }
 
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-
-    const ctx = canvas.getContext("2d");
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(ratio, ratio);
-
-    if (data) {
-        pad.fromData(data);
-    } else {
-        pad.clear();
-    }
-}
-
-window.addEventListener("load", resizeCanvas);
-window.addEventListener("resize", resizeCanvas);
-
-function clearPad() {
-    pad.clear();
-}
-
-function openAlert(title, message, type = "success") {
-    const overlay = document.getElementById("alertOverlay");
-    const alertTitle = document.getElementById("alertTitle");
-    const alertMessage = document.getElementById("alertMessage");
-    const alertIcon = document.getElementById("alertIcon");
-
-    alertTitle.innerText = title;
-    alertMessage.innerText = message;
-
-    if (type === "error") {
-        alertIcon.innerText = "!";
-        alertIcon.style.background = "#fee2e2";
-        alertIcon.style.color = "#dc2626";
-    } else {
-        alertIcon.innerText = "✓";
-        alertIcon.style.background = "#dcfce7";
-        alertIcon.style.color = "#16a34a";
-    }
-
-    overlay.style.display = "flex";
-}
-
-function closeAlert() {
-    document.getElementById("alertOverlay").style.display = "none";
-}
-
-// ÜRÜN VERİSİ ÇEK
+// ÜRÜN ÇEK
 fetch("https://telegram-product-system.onrender.com/product")
-.then(r => r.json())
-.then(d => {
-    let price = d.price || "-";
+.then(r=>r.json())
+.then(d=>{
+ document.getElementById("pname").innerText = d.name || "-";
+ document.getElementById("pprice").innerText = d.price || "-";
+ document.getElementById("pseller").innerText = d.seller || "-";
+ document.getElementById("pphone").innerText = d.phone || "-";
 
-    if (typeof price === "string" && price.trim() !== "" && !price.toLowerCase().includes("tl")) {
-        price += " TL";
-    }
+ if(d.image){
+   const img = document.getElementById("pimg");
+   img.src = d.image;
 
-    document.getElementById("pname").innerText = d.name || "-";
-    document.getElementById("pprice").innerText = price || "-";
-    document.getElementById("pseller").innerText = d.seller || "-";
-    document.getElementById("pphone").innerText = d.phone || "-";
-
-    const img = document.getElementById("pimg");
-    if (d.image && String(d.image).trim() !== "") {
-        img.src = d.image;
-        img.style.display = "block";
-
-        img.onerror = function () {
-            img.style.display = "none";
-            console.error("Resim yüklenemedi:", d.image);
-        };
-    }
-})
-.catch(err => {
-    console.error("Ürün verisi alınamadı:", err);
-    document.getElementById("pname").innerText = "-";
-    document.getElementById("pprice").innerText = "-";
-    document.getElementById("pseller").innerText = "-";
-    document.getElementById("pphone").innerText = "-";
+   img.onerror = () => img.style.display = "none";
+ }
 });
 
 // GÖNDER
-function send() {
-    const isChecked = document.getElementById("check").checked;
+function send(){
 
-    if (!isChecked) {
-        openAlert(
-            "Onay Gerekli",
-            "Devam edebilmek için sözleşmeyi okuyup kabul ettiğinizi işaretlemelisiniz.",
-            "error"
-        );
-        return;
-    }
+ if(!document.getElementById("check").checked){
+   alert("Sözleşmeyi kabul etmelisiniz");
+   return;
+ }
 
-    if (pad.isEmpty()) {
-        openAlert(
-            "İmza Gerekli",
-            "Lütfen sözleşmeyi tamamlamak için imza alanını doldurunuz.",
-            "error"
-        );
-        return;
-    }
+ if(pad.isEmpty()){
+   alert("İmza gereklidir");
+   return;
+ }
 
-    openAlert(
-        "İşlem Başarılı",
-        "Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.",
-        "success"
-    );
+ document.getElementById("popup").style.display="block";
+}
+
+function closePopup(){
+ document.getElementById("popup").style.display="none";
 }
 </script>
 

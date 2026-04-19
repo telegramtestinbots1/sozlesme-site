@@ -16,11 +16,6 @@ body {
 .header {
     background:#0f172a;
     padding:18px 12px;
-}
-.header-center {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
     text-align:center;
 }
 .logo { height:28px; }
@@ -32,6 +27,7 @@ body {
     font-size:11px;
     padding:4px 10px;
     border-radius:999px;
+    display:inline-block;
 }
 
 /* CONTAINER */
@@ -46,7 +42,7 @@ body {
     background:white;
     border-radius:12px;
     padding:14px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -56,21 +52,20 @@ body {
     margin-bottom:10px;
 }
 
-/* PRODUCT */
+/* ÜRÜN */
 .product-box {
-    background:#fff;
     border-left:5px solid #16a34a;
     padding:15px;
-    border-radius:12px;
+    border-radius:10px;
     text-align:center;
+    background:#fff;
 }
 
 .product-row {
     display:flex;
     justify-content:center;
-    gap:20px;
+    gap:15px;
     flex-wrap:wrap;
-    margin-bottom:8px;
 }
 
 .product-item {
@@ -94,22 +89,40 @@ body {
     margin-right:5px;
 }
 
-/* SIGN */
+/* İMZA */
+.signature-box {
+    border:2px dashed #cbd5e1;
+    border-radius:10px;
+    overflow:hidden;
+    background:#fff;
+}
+
 canvas {
     width:100%;
     height:180px;
-    border:2px dashed #ccc;
-    border-radius:10px;
+    display:block;
 }
 
-/* BUTTON */
+/* TEMİZLE BUTONU */
+.clear-btn {
+    margin-top:10px;
+    background:#e5e7eb;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:8px;
+    font-weight:600;
+}
+
+/* BUTON */
 .actions {
     position:sticky;
     bottom:0;
     background:white;
-    padding:10px;
+    padding:12px;
 }
-button {
+
+button.primary {
     width:100%;
     padding:14px;
     border:none;
@@ -129,6 +142,7 @@ button {
     justify-content:center;
     align-items:center;
 }
+
 .modal-box {
     background:white;
     padding:20px;
@@ -139,6 +153,12 @@ button {
 </head>
 
 <body>
+
+<div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
+    <div class="sub">Param Güvende Hizmet Sözleşmesi</div>
+    <div class="secure-badge">🔒 %100 Güvenli İşlem</div>
+</div>
 
 <div class="container">
 
@@ -151,7 +171,7 @@ button {
 <div class="product-row">
 <div class="product-item">
 <div class="product-label">Ürün Adı</div>
-<div id="pname" class="product-value"></div>
+<div id="pname" class="product-value">Yükleniyor...</div>
 </div>
 
 <div class="product-item">
@@ -178,27 +198,15 @@ button {
 </div>
 </div>
 
-<!-- SÖZLEŞME -->
-<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
-
-<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından yapılan ödeme, işlem tamamlanana kadar güvenli hesapta tutulur. Bu süre boyunca ödeme satıcı tarafından kullanılamaz.</div></div>
-
-<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
-
-<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
-
-<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
-
-<div class="card"><div class="title">Platform Sorumluluğu</div><div>Platform yalnızca ödeme aracılık hizmeti sunar ve ürün/hizmet ile ilgili sorumluluk kabul etmez.</div></div>
-
-<div class="card"><div class="title">Gizlilik ve Veri Koruma</div><div>Kullanıcı verileri ilgili mevzuata uygun şekilde korunur.</div></div>
-
-<div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
-
 <!-- İMZA -->
 <div class="card">
 <div class="title">İmzanız</div>
+
+<div class="signature-box">
 <canvas id="pad"></canvas>
+</div>
+
+<button class="clear-btn" onclick="clearPad()">Temizle</button>
 </div>
 
 <div class="card">
@@ -211,7 +219,7 @@ button {
 </div>
 
 <div class="actions">
-<button onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
+<button class="primary" onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
 </div>
 
 <!-- MODAL -->
@@ -225,31 +233,54 @@ button {
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <script>
-const pad = new SignaturePad(document.getElementById("pad"));
+const canvas = document.getElementById("pad");
+const pad = new SignaturePad(canvas);
 
+/* CANVAS FIX (kayma çözümü) */
+function resizeCanvas(){
+ const ratio = Math.max(window.devicePixelRatio || 1, 1);
+ canvas.width = canvas.offsetWidth * ratio;
+ canvas.height = canvas.offsetHeight * ratio;
+ canvas.getContext("2d").scale(ratio, ratio);
+ pad.clear();
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+/* TEMİZLE */
+function clearPad(){
+ pad.clear();
+}
+
+/* MODAL */
 function showModal(text){
  document.getElementById("modalText").innerText = text;
  document.getElementById("modal").style.display = "flex";
 }
-
 function closeModal(){
  document.getElementById("modal").style.display = "none";
 }
 
-// ÜRÜN
+/* ÜRÜN ÇEK (HATA DÜZELTİLDİ) */
 fetch("https://telegram-product-system.onrender.com/product")
-.then(r=>r.json())
+.then(r=>{
+ if(!r.ok) throw new Error();
+ return r.json();
+})
 .then(d=>{
  let price = d.price || "-";
- if (!price.toLowerCase().includes("tl")) price += " TL";
+ if(!price.toLowerCase().includes("tl")) price += " TL";
 
- document.getElementById("pname").innerText = d.name;
+ document.getElementById("pname").innerText = d.name || "-";
  document.getElementById("pprice").innerText = price;
- document.getElementById("pseller").innerText = d.seller;
- document.getElementById("pphone").innerText = d.phone;
+ document.getElementById("pseller").innerText = d.seller || "-";
+ document.getElementById("pphone").innerText = d.phone || "-";
+})
+.catch(()=>{
+ document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
 });
 
-// GÖNDER
+/* GÖNDER */
 function send(){
 
  if(!document.getElementById("check").checked){

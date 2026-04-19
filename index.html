@@ -287,10 +287,10 @@ async function loadProduct() {
             "<b>Ürün Fiyatı:</b> " + (d.price || "-");
 
         document.getElementById("pseller").innerHTML =
-            "<b>Satıcı: " + (d.seller || "-");
+            "<b>Satıcı: </b>" + (d.seller || "-");
 
         document.getElementById("pphone").innerHTML =
-            "<b>Telefon: " + (d.phone || "-");
+            "<b>Telefon:</b> " + (d.phone || "-");
 
         if (d.image) {
             const pimg = document.getElementById("pimg");

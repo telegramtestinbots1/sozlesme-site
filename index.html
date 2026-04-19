@@ -6,139 +6,25 @@
 <title>Param Güvende Sözleşme</title>
 
 <style>
-body{
-    margin:0;
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-    background:#f4f6f8;
-}
-
-/* HEADER */
-.header{
-    background:#0f172a;
-    padding:18px 12px;
-}
-.header-center{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-.logo{ height:28px; }
-.sub{ color:#cbd5e1;font-size:12px; }
-.secure-badge{
-    margin-top:6px;
-    background:#16a34a;
-    color:white;
-    font-size:11px;
-    padding:4px 10px;
-    border-radius:999px;
-}
-
-/* CONTAINER */
-.container{
-    padding:16px;
-    max-width:720px;
-    margin:auto;
-}
-
-/* CARD */
-.card{
-    background:white;
-    border-radius:12px;
-    padding:14px;
-    margin-bottom:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.05);
-}
-.title{
-    font-weight:700;
-    text-align:center;
-    margin-bottom:10px;
-}
-
-/* PRODUCT */
-.product-box{
-    border-left:5px solid #16a34a;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
-}
-
-/* 🔥 KÜÇÜLTÜLMÜŞ RESİM */
-.product-img{
-    width:auto;
-    max-width:100%;
-    max-height:200px;
-    display:block;
-    margin:0 auto 12px;
-    border-radius:10px;
-    border:1px solid #e5e7eb;
-}
-
-/* ROW */
-.product-row{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-.product-item{
-    border:1px solid #e5e7eb;
-    padding:10px;
-    border-radius:8px;
-    min-width:200px;
-}
-.product-label{
-    font-weight:700;
-    font-size:13px;
-}
-.product-value{
-    font-weight:600;
-    font-size:15px;
-}
-
-/* SIGN */
-canvas{
-    width:100%;
-    height:180px;
-    border:2px dashed #ccc;
-    border-radius:10px;
-}
-
-/* BUTTON */
-.actions{
-    position:sticky;
-    bottom:0;
-    background:white;
-    padding:10px;
-}
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    background:#16a34a;
-    color:white;
-    font-weight:700;
-}
-.secondary{
-    background:#e5e7eb;
-    color:black;
-    margin-top:10px;
-}
-
-/* POPUP */
-.popup{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.2);
-    display:none;
-    text-align:center;
-    z-index:999;
-}
+body {margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;background:#f4f6f8;}
+.header {background:#0f172a;padding:18px 12px;}
+.header-center {display:flex;flex-direction:column;align-items:center;text-align:center;}
+.logo {height:28px;}
+.sub {color:#cbd5e1;font-size:12px;}
+.secure-badge {margin-top:6px;background:#16a34a;color:white;font-size:11px;padding:4px 10px;border-radius:999px;}
+.container {padding:16px;max-width:720px;margin:auto;}
+.card {background:white;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.title {font-weight:700;text-align:center;margin-bottom:10px;}
+.product-box {border-left:5px solid #16a34a;padding:15px;border-radius:10px;text-align:center;}
+.product-row {display:flex;justify-content:center;gap:15px;flex-wrap:wrap;}
+.product-item {border:1px solid #e5e7eb;padding:10px;border-radius:8px;min-width:200px;}
+.product-label {font-weight:700;font-size:13px;}
+.product-value {font-weight:600;font-size:15px;}
+.phone-icon {margin-right:5px;}
+canvas {width:100%;height:180px;border:2px dashed #ccc;border-radius:10px;}
+.actions {position:sticky;bottom:0;background:white;padding:10px;}
+button {width:100%;padding:14px;border:none;border-radius:10px;background:#16a34a;color:white;font-weight:700;}
+.secondary {background:#e5e7eb;color:black;margin-top:10px;}
 </style>
 </head>
 
@@ -160,8 +46,6 @@ button{
 
 <div class="product-box">
 
-<img id="pimg" class="product-img">
-
 <div class="product-row">
 <div class="product-item">
 <div class="product-label">Ürün Adı</div>
@@ -182,7 +66,7 @@ button{
 
 <div class="product-item">
 <div class="product-label">İletişim</div>
-<div class="product-value">📞 <span id="pphone"></span></div>
+<div class="product-value"><span class="phone-icon">📞</span><span id="pphone"></span></div>
 </div>
 </div>
 
@@ -205,6 +89,7 @@ button{
 <div class="card"><div class="title">Nakliye ve Teslimat Koşulları</div><div>Sahibinden.com üzerinden gerçekleştirilen alışverişlerde, gönderimler anlaşmalı kargo firmaları olan Yurtiçi Kargo veya PTT Kargo aracılığıyla sağlanmakta olup, Türkiye genelinde ücretsiz olarak teslim edilmektedir.</div></div>
 
 <div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
+
 <!-- İMZA -->
 <div class="card">
 <div class="title">İmzanız</div>
@@ -213,18 +98,13 @@ button{
 </div>
 
 <div class="card">
-<label><input type="checkbox" id="check"> Sözleşmeyi kabul ediyorum</label>
+<label><input type="checkbox" id="check"> Sözleşmeyi okudum ve kabul ediyorum</label>
 </div>
 
 </div>
 
 <div class="actions">
 <button onclick="send()">Sözleşmeyi Onayla ve İmzala</button>
-</div>
-
-<div class="popup" id="popup">
-<p>Sözleşmeniz başarıyla kayıt altına alınmıştır.<br>Yetkili temsilcinizi bilgilendiriniz.</p>
-<button onclick="closePopup()">Tamam</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
@@ -234,24 +114,20 @@ const pad = new SignaturePad(document.getElementById("pad"));
 
 function clearPad(){ pad.clear(); }
 
-// ÜRÜN ÇEK
+// ÜRÜN
 fetch("https://telegram-product-system.onrender.com/product")
 .then(r=>r.json())
 .then(d=>{
- document.getElementById("pname").innerText = d.name || "-";
- document.getElementById("pprice").innerText = d.price || "-";
- document.getElementById("pseller").innerText = d.seller || "-";
- document.getElementById("pphone").innerText = d.phone || "-";
+ let price = d.price || "-";
+ if (!price.toLowerCase().includes("tl")) price += " TL";
 
- if(d.image){
-   const img = document.getElementById("pimg");
-   img.src = d.image;
-
-   img.onerror = () => img.style.display = "none";
- }
+ document.getElementById("pname").innerText = d.name;
+ document.getElementById("pprice").innerText = price;
+ document.getElementById("pseller").innerText = d.seller;
+ document.getElementById("pphone").innerText = d.phone;
 });
 
-// GÖNDER
+// ALERT SİSTEMİ
 function send(){
 
  if(!document.getElementById("check").checked){
@@ -264,11 +140,7 @@ function send(){
    return;
  }
 
- document.getElementById("popup").style.display="block";
-}
-
-function closePopup(){
- document.getElementById("popup").style.display="none";
+ alert("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
 }
 </script>
 

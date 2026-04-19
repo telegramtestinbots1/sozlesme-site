@@ -50,7 +50,7 @@ body {
     margin:auto;
 }
 
-/* TRUST */
+/* TRUST BOX */
 .trust-box {
     background:#ecfeff;
     border:1px solid #67e8f9;
@@ -75,7 +75,7 @@ body {
     text-align:center;
 }
 
-/* ÜRÜN */
+/* ÜRÜN BOX */
 .product-box {
     background: linear-gradient(135deg, #ffffff, #f8fafc);
     border: 1px solid #e2e8f0;
@@ -84,40 +84,40 @@ body {
     border-radius: 14px;
     font-size: 15px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-    text-align:center;
+    text-align: center;
 }
 
 .product-row {
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-bottom:8px;
-    flex-wrap:wrap;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
 .product-item {
-    background:#ffffff;
-    border:1px solid #e5e7eb;
-    padding:10px 14px;
-    border-radius:10px;
-    min-width:220px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 10px 14px;
+    border-radius: 10px;
+    min-width: 220px;
 }
 
 .product-label {
-    font-weight:700;
-    color:#0f172a;
+    font-weight: 700;
+    color: #0f172a;
     display:block;
     font-size:13px;
 }
 
 .product-value {
-    color:#020617;
-    font-weight:600;
+    color: #020617;
+    font-weight: 600;
     font-size:15px;
 }
 
 .phone-icon {
-    margin-right:5px;
+    margin-right:4px;
 }
 
 /* IMAGE */
@@ -128,7 +128,7 @@ body {
     display:none;
 }
 
-/* SIGN */
+/* SIGNATURE */
 canvas {
     width:100%;
     height:180px;
@@ -137,7 +137,7 @@ canvas {
     background:#fff;
 }
 
-/* BUTTON */
+/* ACTIONS */
 .actions {
     position:sticky;
     bottom:0;
@@ -170,11 +170,11 @@ button {
 <body>
 
 <div class="header">
-<div class="header-center">
-<img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
-<div class="sub">Param Güvende Hizmet Sözleşmesi</div>
-<div class="secure-badge">🔒 %100 Güvenli İşlem</div>
-</div>
+    <div class="header-center">
+        <img src="https://upload.wikimedia.org/wikipedia/tr/archive/5/51/20121213095814%21Sahibinden-2010-200px.jpg" class="logo">
+        <div class="sub">Param Güvende Hizmet Sözleşmesi</div>
+        <div class="secure-badge">🔒 %100 Güvenli İşlem</div>
+    </div>
 </div>
 
 <div class="container">
@@ -191,52 +191,46 @@ button {
 
 <div class="product-box">
 
-<div class="product-row">
-<div class="product-item">
-<span class="product-label">Ürün Adı</span>
-<span id="pname" class="product-value"></span>
+    <div class="product-row">
+        <div class="product-item">
+            <span class="product-label">Ürün Adı</span>
+            <span class="product-value" id="pname"></span>
+        </div>
+
+        <div class="product-item">
+            <span class="product-label">Ürün Fiyatı</span>
+            <span class="product-value" id="pprice"></span>
+        </div>
+    </div>
+
+    <div class="product-row">
+        <div class="product-item">
+            <span class="product-label">Satıcı</span>
+            <span class="product-value" id="pseller"></span>
+        </div>
+
+        <div class="product-item">
+            <span class="product-label">İletişim</span>
+            <span class="product-value">
+                <span class="phone-icon">📞</span>
+                <span id="pphone"></span>
+            </span>
+        </div>
+    </div>
+
 </div>
 
-<div class="product-item">
-<span class="product-label">Ürün Fiyatı</span>
-<span id="pprice" class="product-value"></span>
-</div>
 </div>
 
-<div class="product-row">
-<div class="product-item">
-<span class="product-label">Satıcı</span>
-<span id="pseller" class="product-value"></span>
-</div>
-
-<div class="product-item">
-<span class="product-label">İletişim</span>
-<span class="product-value">
-<span class="phone-icon">📞</span>
-<span id="pphone"></span>
-</span>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- SÖZLEŞME -->
-<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında gerçekleşen işlemlerde ödeme aracılık hizmeti sunar. Platform, ürün veya hizmetin tarafı değildir.</div></div>
-
-<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Alıcı tarafından yapılan ödeme, işlem tamamlanana kadar güvenli hesapta tutulur. Bu süre boyunca ödeme satıcı tarafından kullanılamaz.</div></div>
-
-<div class="card"><div class="title">Alıcı Onayı ve Otomatik Aktarım</div><div>Alıcı onayı ile ödeme satıcıya aktarılır. Belirlenen süre içinde işlem yapılmazsa ödeme otomatik olarak satıcıya aktarılabilir.</div></div>
-
-<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz durumunda işlem askıya alınır ve platform kayıtları esas alınarak değerlendirme yapılır.</div></div>
-
-<div class="card"><div class="title">Satıcı Haklarının Korunması</div><div>Satıcı, ürünü eksiksiz teslim ettiğini belgelediğinde ödeme alma hakkına sahiptir. Kötü niyetli itirazlar reddedilebilir.</div></div>
-
-<div class="card"><div class="title">Platform Sorumluluğu</div><div>Platform yalnızca ödeme aracılık hizmeti sunar ve ürün/hizmet ile ilgili sorumluluk kabul etmez.</div></div>
-
-<div class="card"><div class="title">Gizlilik ve Veri Koruma</div><div>Kullanıcı verileri ilgili mevzuata uygun şekilde korunur.</div></div>
-
-<div class="card"><div class="title">Elektronik Onay</div><div>Bu sözleşme elektronik ortamda onaylanarak yürürlüğe girer ve kayıtlar delil niteliğindedir.</div></div>
+<!-- TÜM SÖZLEŞME BLOKLARI GERİ GELDİ -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında ödeme aracılığı yapar.</div></div>
+<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Ödeme güvenli hesapta tutulur.</div></div>
+<div class="card"><div class="title">Alıcı Onayı</div><div>Onay sonrası ödeme aktarılır.</div></div>
+<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz halinde işlem durdurulur.</div></div>
+<div class="card"><div class="title">Satıcı Hakları</div><div>Satıcı teslim sonrası ödeme alır.</div></div>
+<div class="card"><div class="title">Platform Sorumluluğu</div><div>Platform sadece aracıdır.</div></div>
+<div class="card"><div class="title">Gizlilik</div><div>Kullanıcı verileri korunur.</div></div>
+<div class="card"><div class="title">Elektronik Onay</div><div>Kayıtlar delildir.</div></div>
 
 <!-- SIGN -->
 <div class="card">
@@ -297,21 +291,6 @@ fetch("https://telegram-product-system.onrender.com/product")
 .catch(()=>{
  document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
 });
-
-// GÖNDER
-function send(){
- if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmelisiniz");
-   return;
- }
-
- if(pad.isEmpty()){
-   alert("İmza gereklidir");
-   return;
- }
-
- alert("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
-}
 </script>
 
 </body>

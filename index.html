@@ -108,7 +108,6 @@ body {
     color: #0f172a;
     display:block;
     font-size:13px;
-    margin-bottom:2px;
 }
 
 .product-value {
@@ -117,7 +116,6 @@ body {
     font-size:15px;
 }
 
-/* telefon ikon */
 .phone-icon {
     margin-right:4px;
 }
@@ -224,6 +222,16 @@ button {
 
 </div>
 
+<!-- TÜM SÖZLEŞME BLOKLARI GERİ GELDİ -->
+<div class="card"><div class="title">Hizmetin Kapsamı</div><div>Platform, alıcı ile satıcı arasında ödeme aracılığı yapar.</div></div>
+<div class="card"><div class="title">Ödeme ve Blokaj Süreci</div><div>Ödeme güvenli hesapta tutulur.</div></div>
+<div class="card"><div class="title">Alıcı Onayı</div><div>Onay sonrası ödeme aktarılır.</div></div>
+<div class="card"><div class="title">İtiraz ve İnceleme</div><div>İtiraz halinde işlem durdurulur.</div></div>
+<div class="card"><div class="title">Satıcı Hakları</div><div>Satıcı teslim sonrası ödeme alır.</div></div>
+<div class="card"><div class="title">Platform Sorumluluğu</div><div>Platform sadece aracıdır.</div></div>
+<div class="card"><div class="title">Gizlilik</div><div>Kullanıcı verileri korunur.</div></div>
+<div class="card"><div class="title">Elektronik Onay</div><div>Kayıtlar delildir.</div></div>
+
 <!-- SIGN -->
 <div class="card">
 <div class="title">İmzanız</div>
@@ -258,19 +266,15 @@ function resize(){
 }
 resize();
 
-function clearPad(){
- pad.clear();
-}
+function clearPad(){ pad.clear(); }
 
 // ÜRÜN ÇEK
 fetch("https://telegram-product-system.onrender.com/product")
 .then(r=>r.json())
 .then(d=>{
-
  let price = d.price || "-";
-
  if (price !== "-" && !price.toLowerCase().includes("tl")) {
-     price = price + " TL";
+     price += " TL";
  }
 
  document.getElementById("pname").innerText = d.name || "-";
@@ -283,40 +287,10 @@ fetch("https://telegram-product-system.onrender.com/product")
    img.src = d.image;
    img.style.display = "block";
  }
-
+})
+.catch(()=>{
+ document.getElementById("pname").innerText = "Ürün bilgisi yüklenemedi";
 });
-
-// GÖNDER
-function send(){
-
- if(!document.getElementById("check").checked){
-   alert("Sözleşmeyi kabul etmelisiniz");
-   return;
- }
-
- if(pad.isEmpty()){
-   alert("İmza gereklidir");
-   return;
- }
-
- const data = pad.toDataURL();
-
- fetch("https://telegram-product-system.onrender.com/submit", {
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body: JSON.stringify({
-     signature: data,
-     product:{
-       name: document.getElementById("pname").innerText,
-       price: document.getElementById("pprice").innerText,
-       seller: document.getElementById("pseller").innerText,
-       phone: document.getElementById("pphone").innerText
-     }
-   })
- });
-
- alert("Sözleşmeniz başarıyla kayıt altına alınmıştır. Yetkili temsilcinizi bilgilendirmenizi rica ederiz.");
-}
 </script>
 
 </body>
